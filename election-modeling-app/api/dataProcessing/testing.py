@@ -30,4 +30,4 @@ def intersect(path_to_current_precinct_shapefile, path_to_old_precinct_shapefile
     return merged
 #makeGraphs(88, 'HOUSE OF DELEGATES')
 
-tallyVotesByDistrict('OK', 41, 'STATE HOUSE', 2020)
+tallyVotesByDistrict('OK', 3, 'STATE HOUSE', 2022)

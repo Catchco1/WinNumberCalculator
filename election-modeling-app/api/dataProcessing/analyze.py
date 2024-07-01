@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from math import ceil
 from plotly.subplots import make_subplots
-from helper import countVotes, intersect, intersectDistrictAndPrecinct
+from helper import countVotes, intersect, intersectDistrictAndPrecinct, countVotesDistricts
 from winNumber import calculateWinNumber
 
 def tallyVotes(state, districtNum, office, year):
@@ -156,6 +156,14 @@ def tallyVotesByDistrict(state, districtNum, office, year):
 
     electionDistrict = electionRace[electionRace['district'] == str(districtNum)]
 
-    findOverlap = intersectDistrictAndPrecinct('electionData/{}/maps/stateHouseDistricts/{}_House_2022.shx'.format(state, state), 'electionData/{}/maps/precincts/{}_{}.shx'.format(state, state, year))
+    electionDistrict['precinct'] = electionDistrict['precinct'].astype(str)
 
-    print(findOverlap[findOverlap['overlapping'] < 1])
+    findOverlap = intersectDistrictAndPrecinct('electionData/{}/maps/stateHouseDistricts/{}_House_2022.shx'.format(state, state), 'electionData/{}/maps/precincts/{}_2010.shx'.format(state, state))
+
+    merged = electionDistrict.merge(findOverlap, left_on=['precinct'], right_on=['PCT_CEB'])
+
+    # Put vote totals into a dataframe
+
+    results = countVotesDistricts(merged, districtNum)
+
+    print(results)

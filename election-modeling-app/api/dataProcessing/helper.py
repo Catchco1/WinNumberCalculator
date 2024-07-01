@@ -55,7 +55,6 @@ def intersect(path_to_current_precinct_shapefile, path_to_old_precinct_shapefile
 def intersectDistrictAndPrecinct(path_to_current_districts_shapefile, path_to_old_precinct_shapefile):
     # setup district and precinct dataframes
     currentDistricts = gpd.read_file(path_to_current_districts_shapefile)
-    print(currentDistricts)
     oldPrecincts = gpd.read_file(path_to_old_precinct_shapefile)
     if currentDistricts.crs != oldPrecincts.crs:
         oldPrecincts = oldPrecincts.to_crs(crs=currentDistricts.crs)
@@ -74,3 +73,12 @@ def intersectDistrictAndPrecinct(path_to_current_districts_shapefile, path_to_ol
     merged = merged[merged['overlapping'] > 0.1]
 
     return merged
+
+def countVotesDistricts(electionData, district):
+    electionData['proportionVotes'] = electionData['votes'].multiply(electionData['overlapping'], axis='index')
+    electionData['proportionVotes'] = electionData['proportionVotes'].apply(np.ceil)
+    demVotes = electionData.loc[(electionData['DISTRICT'] == district) & (electionData['party_simplified'] == 'DEMOCRAT'), 'proportionVotes'].sum()
+    repVotes = electionData.loc[(electionData['DISTRICT'] == district) & (electionData['party_simplified'] == 'REPUBLICAN'), 'proportionVotes'].sum()
+    otherVotes = electionData.loc[(electionData['DISTRICT'] == district) & (electionData['party_simplified'] != 'REPUBLICAN') & (electionData['party_simplified'] != 'DEMOCRAT'), 'proportionVotes'].sum()
+    districtTotals = {'demVotes': [demVotes], 'repVotes': [repVotes], 'otherVotes': [otherVotes]}
+    return districtTotals
