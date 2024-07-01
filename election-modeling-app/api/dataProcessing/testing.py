@@ -1,4 +1,4 @@
-from analyze import makeGraphs
+from analyze import makeGraphs, tallyVotesByDistrict
 import geopandas as gpd
 
 def intersect(path_to_current_precinct_shapefile, path_to_old_precinct_shapefile):
@@ -28,4 +28,6 @@ def intersect(path_to_current_precinct_shapefile, path_to_old_precinct_shapefile
 
     #merged['currentPrecinct'] = merged['currentPrecinct'].str.extract('(^\\D*)', expand=False)
     return merged
-makeGraphs(88, 'HOUSE OF DELEGATES')
+#makeGraphs(88, 'HOUSE OF DELEGATES')
+
+tallyVotesByDistrict('OK', 41, 'STATE HOUSE', 2020)

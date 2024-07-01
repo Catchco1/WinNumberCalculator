@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <title>Map</title>
+            </citeinfo>
+        </citation>
+        <descript>
+            <abstract>This layer is of statewide voting precincts for Oklahoma. Boundaries are based on information provided by the County Election Boards of Oklahoma. This statewide data set is created by merging individual precinct coverages for all seventy-seven counties in the State. This data set was prepared by the Center for Spatial Analysis at the University of Oklahoma in cooperation with the Oklahoma State Election Board for the purpose of capturing data related to precinct boundaries for all counties in the State.Last Updated: 06/07/2022</abstract>
+            <purpose>Statewide Oklahoma Voter Precincts 2020</purpose>
+        </descript>
+        <keywords>
+            <theme>
+                <themekt>None</themekt>
+                <themekey>voter</themekey>
+                <themekey>precincts</themekey>
+                <themekey>Oklahoma</themekey>
+                <themekey>statewide</themekey>
+                <themekey>legislative</themekey>
+                <themekey>2020</themekey>
+            </theme>
+        </keywords>
+        <accconst>None</accconst>
+        <useconst>This Data is for Public use to be used as a spatial location tool.</useconst>
+        <datacred>Center for Spatial Analysis; Oklahoma State Election Board</datacred>
+    </idinfo>
+    <metainfo>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>

@@ -2,8 +2,8 @@ import pandas as pd
 import plotly.graph_objects as go
 from math import ceil
 from plotly.subplots import make_subplots
-from dataProcessing.helper import countVotes, intersect
-from dataProcessing.winNumber import calculateWinNumber
+from helper import countVotes, intersect, intersectDistrictAndPrecinct
+from winNumber import calculateWinNumber
 
 def tallyVotes(state, districtNum, office, year):
 
@@ -134,3 +134,28 @@ def makeGraphs(results):
 # results2018 = tallyVotes('WV', 88, 'HOUSE OF DELEGATES', '2018')
 
 # makeGraphs([results2018, results2020, results2022])
+
+def tallyVotesByDistrict(state, districtNum, office, year):
+    # Construct current precinct/district/county dataframe
+    currentDistricts = pd.read_csv("electionData/{}/results/{}_{}.csv".format(state, state, '2022'))
+    currentDistricts = currentDistricts[currentDistricts['office'] == office]
+    currentDistricts = currentDistricts[['precinct', 'county_name', 'district']]
+    #currentDistricts['precinct'] = currentDistricts['precinct'].str.split(' ').str.get(-1)
+
+    # Read in old election data from MEDSL
+
+    electionYear = pd.read_csv("electionData/{}/results/{}_{}.csv".format(state, state, year))
+
+    # Select only the office you are interested in
+
+    electionRace = electionYear[(electionYear['office'] == office) | (electionYear['office'] == 'STATE HOUSE')]
+
+    electionRace['district'] = electionRace['district'].str.lstrip('0')
+
+    # Select the district
+
+    electionDistrict = electionRace[electionRace['district'] == str(districtNum)]
+
+    findOverlap = intersectDistrictAndPrecinct('electionData/{}/maps/stateHouseDistricts/{}_House_2022.shx'.format(state, state), 'electionData/{}/maps/precincts/{}_{}.shx'.format(state, state, year))
+
+    print(findOverlap[findOverlap['overlapping'] < 1])
