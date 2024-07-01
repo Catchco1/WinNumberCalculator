@@ -2,8 +2,8 @@ import pandas as pd
 import plotly.graph_objects as go
 from math import ceil
 from plotly.subplots import make_subplots
-from dataProcessing.helper import countVotes, intersect
-from dataProcessing.winNumber import calculateWinNumber
+from helper import countVotes, intersect
+from winNumber import calculateWinNumber
 
 def tallyVotes(state, districtNum, office, year):
 
